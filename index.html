@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parkhill College | We Focus, Build and Control</title>
+    <meta name="description"
+        content="Parkhill College - A premier private school in Domboshava, Zimbabwe. 2026 Registration now open for ECD to Grade 7, Form 1 to Form 6.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome (for icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="Parkhill College Logo" style="height: 80px; width: auto;">
+            <div class="school-name">
+                <h1>PARKHILL COLLEGE</h1>
+                <p>We Focus, Build and Control</p>
+            </div>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#academics">Academics</a></li>
+                <li><a href="#facilities">Facilities</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#admissions" class="cta-nav">Enroll 2026</a></li>
+                <li>
+                    <div class="header-controls">
+                        <button id="theme-toggle" onclick="toggleTheme()" class="theme-control-btn"
+                            title="Toggle Light/Dark Mode">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <div class="audio-control-container">
+                            <button id="audio-toggle" onclick="toggleAudioSlider()" class="theme-control-btn"
+                                title="Music Controls">
+                                <i class="fas fa-volume-mute"></i>
+                            </button>
+                            <div id="volume-wrapper" class="volume-slider-wrapper">
+                                <div class="volume-header">
+                                    <button onclick="toggleAudio(); event.stopPropagation();" id="play-pause-btn"><i
+                                            class="fas fa-play"></i></button>
+                                    <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.5"
+                                        oninput="updateVolume(this.value)">
+                                </div>
+                            </div>
+                        </div>
+                        <button id="side-menu-btn" onclick="toggleSideMenu()" class="theme-control-btn" title="Menu">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Side Menu Sidebar (Starlink Style) -->
+    <div id="side-menu" class="side-menu">
+        <div class="side-menu-header">
+            <button class="close-side-menu" onclick="toggleSideMenu()">&times;</button>
+        </div>
+        <div class="side-menu-content">
+            <div class="side-nav-links">
+                <a href="#home" onclick="toggleSideMenu()">Home</a>
+                <a href="#about" onclick="toggleSideMenu()">About</a>
+                <a href="#academics" onclick="toggleSideMenu()">Academics</a>
+                <a href="#facilities" onclick="toggleSideMenu()">Facilities</a>
+                <a href="#blog" onclick="toggleSideMenu()">Blog</a>
+                <a href="#faq" onclick="toggleSideMenu()">FAQ</a>
+                <a href="#gallery" onclick="toggleSideMenu()">Gallery</a>
+                <a href="#contact" onclick="toggleSideMenu()">Contact</a>
+                <a href="#admissions" onclick="toggleSideMenu()">Admissions</a>
+            </div>
+
+            <hr class="side-menu-divider">
+
+            <div class="side-nav-links special-links">
+                <a href="javascript:void(0)" onclick="openOverlaySection('calendar')">Annual School Calendar 2026</a>
+                <a href="javascript:void(0)" onclick="openOverlaySection('owa')">OWA TECHNOLOGIES</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Page Overlays for Special Sections -->
+    <div id="options-overlay" class="options-overlay">
+        <!-- Close Button (Shared) -->
+        <button class="close-overlay" onclick="closeOverlaySection()">&times;</button>
+
+        <!-- Calendar Section -->
+        <div id="calendar-overlay-content" class="overlay-content-box" style="display:none;">
+            <h2 class="overlay-title">Annual School Calendar 2026</h2>
+            <div class="calendar-tabs">
+                <button class="cal-tab active" onclick="showTerm(1)">Term 1</button>
+                <button class="cal-tab" onclick="showTerm(2)">Term 2</button>
+                <button class="cal-tab" onclick="showTerm(3)">Term 3</button>
+            </div>
+
+            <div id="term1" class="term-content">
+                <h3>Term 1: Jan - Apr 2026</h3>
+                <div class="dates-grid">
+                    <div class="date-item"><strong>Opening:</strong> 13 January 2026</div>
+                    <div class="date-item"><strong>Closing:</strong> 9 April 2026</div>
+                    <div class="date-item"><strong>Holidays:</strong> Easter (3-6 April), Independence Day (18 April)
+                    </div>
+                </div>
+            </div>
+            <div id="term2" class="term-content" style="display:none;">
+                <h3>Term 2: May - Aug 2026</h3>
+                <div class="dates-grid">
+                    <div class="date-item"><strong>Opening:</strong> 12 May 2026</div>
+                    <div class="date-item"><strong>Closing:</strong> 6 August 2026</div>
+                    <div class="date-item"><strong>Holidays:</strong> Africa Day (25 May), Heroes Day (10 Aug), Defense
+                        Forces Day (11 Aug)</div>
+                </div>
+            </div>
+            <div id="term3" class="term-content" style="display:none;">
+                <h3>Term 3: Sept - Dec 2026</h3>
+                <div class="dates-grid">
+                    <div class="date-item"><strong>Opening:</strong> 8 September 2026</div>
+                    <div class="date-item"><strong>Closing:</strong> 3 December 2026</div>
+                    <div class="date-item"><strong>Holidays:</strong> National Unity Day (22 Dec), Christmas (25 Dec)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OWA TECHNOLOGIES Section -->
+        <div id="owa-overlay-content" class="overlay-content-box" style="display:none;">
+            <h2 class="overlay-title">OWA TECHNOLOGIES</h2>
+            <div class="owa-intro">
+                <p>We are the visionary architects behind this digital experience. OWA Technologies specializes in
+                    crafting high-performance, future-ready digital solutions for institutions across Zimbabwe.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-code"></i>
+                    <h4>Premium Web Development</h4>
+                    <p>Bespoke, high-conversion websites for schools and businesses.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-robot"></i>
+                    <h4>AI Integration</h4>
+                    <p>Intelligent chatbots and automated systems for seamless communication.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>IT Consultancy</h4>
+                    <p>Securing and optimizing institutional digital infrastructure.</p>
+                </div>
+            </div>
+            <div class="owa-contact">
+                <p>Ready to build the future? <strong>Contact Us:</strong> info@owa-technologies.co.zw</p>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bg-audio" loop>
+        <source src="audio/background-music.mp3" type="audio/mpeg">
+    </audio>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home"
+        style="background: linear-gradient(rgba(26, 27, 93, 0.7), rgba(26, 27, 93, 0.7)), url('featured-images/hero-bg.jpg');">
+        <div class="hero-content">
+            <h2>PARKHILL COLLEGE</h2>
+            <p>2026 Registration In Progress</p>
+            <div class="hero-btns">
+                <a href="#" class="btn btn-primary" onclick="openEnrollModal(); return false;">Enroll for 2026</a>
+                <a href="https://wa.me/263788528818" class="btn btn-secondary">Chat With Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="reveal">
+        <div class="section-title">
+            <h2>About Our College</h2>
+        </div>
+        <div class="grid">
+            <div class="about-text">
+                <p>Parkhill College is a disciplined and academically driven institution located in Domboshava
+                    Showgrounds, Zimbabwe. We are committed to academic excellence, leadership, and character
+                    development, serving families with a safe, structured, and values-driven learning environment.</p>
+                <br>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Small class sizes for personalized attention</li>
+                    <li><i class="fas fa-check-circle"></i> Highly qualified and dedicated teachers</li>
+                    <li><i class="fas fa-check-circle"></i> Focus on ZIMSEC curriculum with strong pass rates</li>
+                    <li><i class="fas fa-check-circle"></i> Holistic development approach</li>
+                </ul>
+            </div>
+            <div class="about-image">
+                <img src="featured-images/about-us.jpg" alt="Students at Parkhill College Gate"
+                    style="width:100%; border-radius:15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+            </div>
+        </div>
+    </section>
+
+    <!-- Academics Section -->
+    <section id="academics" class="reveal" style="background: var(--light-bg);">
+        <div class="section-title">
+            <h2>Our Academic Excellence</h2>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h3>ECD</h3>
+                <p>Laying a strong foundation through early childhood development. Focus on cognitive, social, and
+                    emotional growth following Ministry of Education guidelines.</p>
+            </div>
+            <div class="card">
+                <h3>Primary (Grade 1-7)</h3>
+                <p>Nurturing young minds with a core focus on Mathematics, Sciences, and Languages. We prepare students
+                    for Grade 7 ZIMSEC and Cambridge examinations with confidence.</p>
+            </div>
+            <div class="card">
+                <h3>Secondary (Form 1-6)</h3>
+                <p>Advanced learning with specialized focus on academic results, leadership training, and digital
+                    literacy. Full ZIMSEC and Cambridge curriculum coverage for O and A Levels.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section id="facilities" class="reveal">
+        <div class="section-title">
+            <h2>Modern Facilities</h2>
+        </div>
+        <div class="grid">
+            <div class="facility-item">
+                <img src="featured-images/classroom-facility.jpg" alt="Modern Classroom"
+                    style="width:100%; height:250px; border-radius:15px; margin-bottom:15px; object-fit:cover;">
+                <h4>Modern Classrooms</h4>
+            </div>
+            <div class="facility-item">
+                <img src="featured-images/science-lab.jpg" alt="Science Laboratory"
+                    style="width:100%; height:250px; border-radius:15px; margin-bottom:15px; object-fit:cover;">
+                <h4>Science Laboratory</h4>
+            </div>
+            <div class="facility-item">
+                <img src="featured-images/computer-lab.jpg" alt="Computer Lab"
+                    style="width:100%; height:250px; border-radius:15px; margin-bottom:15px; object-fit:cover;">
+                <h4>Computer Lab</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="reveal" style="background: var(--light-bg);">
+        <div class="section-title">
+            <h2>Latest From Our Blog</h2>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <img src="featured-images/blog-zimsec.jpg" alt="ZIMSEC Preparation"
+                    style="width:100%; height:200px; border-radius:10px; margin-bottom:15px; object-fit:cover;">
+                <div class="blog-meta" style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                    <i class="fas fa-user-circle" style="color: var(--primary-navy); font-size:24px;"></i>
+                    <span style="color: var(--text-light); font-size:0.9rem;">By Academic Team</span>
+                </div>
+                <h4>Preparing for ZIMSEC 2026 Examinations</h4>
+                <p>Key strategies for students and parents to ensure success in the upcoming national exams.</p>
+            </div>
+            <div class="card">
+                <img src="featured-images/blog-ecd.jpg" alt="ECD Importance"
+                    style="width:100%; height:200px; border-radius:10px; margin-bottom:15px; object-fit:cover;">
+                <div class="blog-meta" style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                    <i class="fas fa-user-circle" style="color: var(--primary-navy); font-size:24px;"></i>
+                    <span style="color: var(--text-light); font-size:0.9rem;">By ECD Department</span>
+                </div>
+                <h4>Why Early Childhood Development Matters</h4>
+                <p>The science behind early learning and how we implement it at Parkhill College.</p>
+            </div>
+            <div class="card">
+                <img src="featured-images/blog-leadership.jpg" alt="Leadership"
+                    style="width:100%; height:200px; border-radius:10px; margin-bottom:15px; object-fit:cover;">
+                <div class="blog-meta" style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                    <i class="fas fa-user-circle" style="color: var(--primary-navy); font-size:24px;"></i>
+                    <span style="color: var(--text-light); font-size:0.9rem;">By Principal's Office</span>
+                </div>
+                <h4>Developing Discipline and Leadership</h4>
+                <p>How our structured environment builds future leaders for Zimbabwe.</p>
+            </div>
+            <div class="card">
+                <img src="featured-images/blog-digital-skills.jpg" alt="Digital Skills"
+                    style="width:100%; height:200px; border-radius:10px; margin-bottom:15px; object-fit:cover;">
+                <div class="blog-meta" style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                    <i class="fas fa-user-circle" style="color: var(--primary-navy); font-size:24px;"></i>
+                    <span style="color: var(--text-light); font-size:0.9rem;">By IT Department</span>
+                </div>
+                <h4>Digital Skills for Zimbabwean Learners</h4>
+                <p>Integrating technology into the ZIMSEC curriculum for a global future.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="reveal">
+        <div class="section-title">
+            <h2>Parent & Student Stories</h2>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <p>"The discipline at Parkhill is unmatched. My son has improved significantly in his mathematics within
+                    just one term."</p>
+                <p><strong>- Parent, Domboshava</strong></p>
+            </div>
+            <div class="card">
+                <p>"I love the science labs. We get to do practical experiments that really help us understand the
+                    ZIMSEC syllabus better."</p>
+                <p><strong>- Form 4 Student</strong></p>
+            </div>
+            <div class="card">
+                <p>"As a primary school parent, I'm impressed by the individual attention my daughter receives. The
+                    teachers actually care."</p>
+                <p><strong>- Primary Parent</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="reveal" style="background: var(--light-bg);">
+        <div class="section-title">
+            <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> What are the school hours?</h4>
+                <p>School runs from 7:30 AM to 3:30 PM, Monday to Friday. Extramural activities are available after
+                    school until 4:30 PM.</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> Do you provide transport?</h4>
+                <p>Yes, we offer school bus services to surrounding areas including Domboshava, Goromonzi, and Ruwa.
+                    Contact us for routes and fees.</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> What uniforms are required?</h4>
+                <p>School uniforms can be purchased from our designated supplier. Navy blue for the college uniform with
+                    gold accents. Sports attire is required for PE classes.</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> Are meals provided?</h4>
+                <p>Yes, we have a cafeteria serving nutritious meals. Students can also bring packed lunches. Breakfast
+                    is available from 7:00 AM.</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> What extracurricular activities do you offer?</h4>
+                <p>We offer sports (football, basketball, volleyball), music, drama, science club, debating society, and
+                    various cultural activities.</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> How do I track my child's progress?</h4>
+                <p>We provide termly progress reports and parent-teacher meetings every term. You can also communicate
+                    with teachers via our administration office.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="reveal">
+        <div class="section-title gallery-header"
+            style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px;">
+            <h2 style="margin-bottom: 0;">Our Gallery</h2>
+            <a href="javascript:void(0)" class="view-all-link" onclick="toggleGallery()"
+                style="color: var(--primary-gold); font-weight: 600; text-decoration: none; transition: var(--transition);">View
+                All <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="gallery-grid" id="main-gallery">
+            <div class="gallery-item" onclick="openLightbox(1)"><img src="gallery/1.jpg" alt="Gallery Image 1"></div>
+            <div class="gallery-item" onclick="openLightbox(2)"><img src="gallery/2.jpg" alt="Gallery Image 2"></div>
+            <div class="gallery-item" onclick="openLightbox(3)"><img src="gallery/3.jpg" alt="Gallery Image 3"></div>
+            <div class="gallery-item" onclick="openLightbox(4)"><img src="gallery/4.jpg" alt="Gallery Image 4"></div>
+            <div class="gallery-item" onclick="openLightbox(5)"><img src="gallery/5.jpg" alt="Gallery Image 5"></div>
+            <div class="gallery-item" onclick="openLightbox(6)"><img src="gallery/6.jpg" alt="Gallery Image 6"></div>
+            <div class="gallery-item" onclick="openLightbox(7)"><img src="gallery/7.jpg" alt="Gallery Image 7"></div>
+            <div class="gallery-item" onclick="openLightbox(8)"><img src="gallery/8.jpg" alt="Gallery Image 8"></div>
+        </div>
+
+        <div class="gallery-grid" id="extended-gallery" style="display: none; margin-top: 15px;">
+            <!-- Images 9 to 40 -->
+            <div class="gallery-item" onclick="openLightbox(9)"><img src="gallery/9.jpg" alt="Gallery Image 9"></div>
+            <div class="gallery-item" onclick="openLightbox(10)"><img src="gallery/10.jpg" alt="Gallery Image 10"></div>
+            <div class="gallery-item" onclick="openLightbox(11)"><img src="gallery/11.jpg" alt="Gallery Image 11"></div>
+            <div class="gallery-item" onclick="openLightbox(12)"><img src="gallery/12.jpg" alt="Gallery Image 12"></div>
+            <div class="gallery-item" onclick="openLightbox(13)"><img src="gallery/13.jpg" alt="Gallery Image 13"></div>
+            <div class="gallery-item" onclick="openLightbox(14)"><img src="gallery/14.jpg" alt="Gallery Image 14"></div>
+            <div class="gallery-item" onclick="openLightbox(15)"><img src="gallery/15.jpg" alt="Gallery Image 15"></div>
+            <div class="gallery-item" onclick="openLightbox(16)"><img src="gallery/16.jpg" alt="Gallery Image 16"></div>
+            <div class="gallery-item" onclick="openLightbox(17)"><img src="gallery/17.jpg" alt="Gallery Image 17"></div>
+            <div class="gallery-item" onclick="openLightbox(18)"><img src="gallery/18.jpg" alt="Gallery Image 18"></div>
+            <div class="gallery-item" onclick="openLightbox(19)"><img src="gallery/19.jpg" alt="Gallery Image 19"></div>
+            <div class="gallery-item" onclick="openLightbox(20)"><img src="gallery/20.jpg" alt="Gallery Image 20"></div>
+            <div class="gallery-item" onclick="openLightbox(21)"><img src="gallery/21.jpg" alt="Gallery Image 21"></div>
+            <div class="gallery-item" onclick="openLightbox(22)"><img src="gallery/22.jpg" alt="Gallery Image 22"></div>
+            <div class="gallery-item" onclick="openLightbox(23)"><img src="gallery/23.jpg" alt="Gallery Image 23"></div>
+            <div class="gallery-item" onclick="openLightbox(24)"><img src="gallery/24.jpg" alt="Gallery Image 24"></div>
+            <div class="gallery-item" onclick="openLightbox(25)"><img src="gallery/25.jpg" alt="Gallery Image 25"></div>
+            <div class="gallery-item" onclick="openLightbox(26)"><img src="gallery/26.jpg" alt="Gallery Image 26"></div>
+            <div class="gallery-item" onclick="openLightbox(27)"><img src="gallery/27.jpg" alt="Gallery Image 27"></div>
+            <div class="gallery-item" onclick="openLightbox(28)"><img src="gallery/28.jpg" alt="Gallery Image 28"></div>
+            <div class="gallery-item" onclick="openLightbox(29)"><img src="gallery/29.jpg" alt="Gallery Image 29"></div>
+            <div class="gallery-item" onclick="openLightbox(30)"><img src="gallery/30.jpg" alt="Gallery Image 30"></div>
+            <div class="gallery-item" onclick="openLightbox(31)"><img src="gallery/31.jpg" alt="Gallery Image 31"></div>
+            <div class="gallery-item" onclick="openLightbox(32)"><img src="gallery/32.jpg" alt="Gallery Image 32"></div>
+            <div class="gallery-item" onclick="openLightbox(33)"><img src="gallery/33.jpg" alt="Gallery Image 33"></div>
+            <div class="gallery-item" onclick="openLightbox(34)"><img src="gallery/34.jpg" alt="Gallery Image 34"></div>
+            <div class="gallery-item" onclick="openLightbox(35)"><img src="gallery/35.jpg" alt="Gallery Image 35"></div>
+            <div class="gallery-item" onclick="openLightbox(36)"><img src="gallery/36.jpg" alt="Gallery Image 36"></div>
+            <div class="gallery-item" onclick="openLightbox(37)"><img src="gallery/37.jpg" alt="Gallery Image 37"></div>
+            <div class="gallery-item" onclick="openLightbox(38)"><img src="gallery/38.jpg" alt="Gallery Image 38"></div>
+            <div class="gallery-item" onclick="openLightbox(39)"><img src="gallery/39.jpg" alt="Gallery Image 39"></div>
+            <div class="gallery-item" onclick="openLightbox(40)"><img src="gallery/40.jpg" alt="Gallery Image 40"></div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox-modal">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Full view">
+            <div class="lightbox-btns">
+                <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+                <button class="next" onclick="changeSlide(1)">&#10095;</button>
+            </div>
+            <div class="slideshow-controls">
+                <button id="slideshow-btn" onclick="toggleSlideshow()"><i class="fas fa-play"></i> Start
+                    Slideshow</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="reveal" style="background: var(--light-bg);">
+        <div class="section-title">
+            <h2>Contact Us</h2>
+        </div>
+        <div class="grid">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <br>
+                <p><i class="fas fa-map-marker-alt"></i> Domboshava Showgrounds, Behind Council Offices, Zimbabwe</p>
+                <br>
+                <p><i class="fas fa-phone"></i> +263 788 528 818</p>
+                <br>
+                <p><i class="fas fa-envelope"></i> info@parkhillcollege.co.zw</p>
+                <br>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 7:30 AM - 3:30 PM</p>
+            </div>
+            <div class="contact-form">
+                <h3>Send us a Message</h3>
+                <br>
+                <form id="contactForm" onsubmit="submitForm(event)">
+                    <input type="text" id="name" placeholder="Your Name" required>
+                    <input type="email" id="email" placeholder="Email Address" required>
+                    <input type="tel" id="phone" placeholder="Phone Number">
+                    <select id="inquiry">
+                        <option value="">Select Inquiry Type</option>
+                        <option value="admissions">Admissions</option>
+                        <option value="fees">Fees</option>
+                        <option value="general">General</option>
+                    </select>
+                    <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+        <div class="map-container">
+            <iframe src="https://maps.google.com/maps?q=-17.56752,31.18352&z=15&output=embed" width="100%" height="300"
+                style="border:0; border-radius: 15px;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter reveal">
+        <div class="newsletter-content">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter for the latest news, events, and updates from Parkhill College.</p>
+            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                <input type="email" id="newsletter-email" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Admissions Section -->
+    <section id="admissions" class="reveal">
+        <div class="section-title">
+            <h2>Admissions 2026</h2>
+        </div>
+        <div class="grid">
+            <div>
+                <h3>How to Apply</h3>
+                <br>
+                <ol style="margin-left: 20px;">
+                    <li>Visit the school in Domboshava Showgrounds (Behind Council Offices)</li>
+                    <li>Collect application form from the administrative office</li>
+                    <li>Submit required documents (Birth certificate, previous results)</li>
+                    <li>Secure place with a commitment deposit</li>
+                </ol>
+                <br>
+                <p><strong>Note: Limited places available for 2026 enrollment!</strong></p>
+            </div>
+            <div style="text-align: center; display: flex; flex-direction: column; justify-content: center;">
+                <a href="#" class="btn btn-primary" onclick="openEnrollModal(); return false;">Reserve a Place Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container" id="chatbot">
+        <div class="chatbot-header">
+            <span>Parkhill Assistant</span>
+            <button onclick="toggleChat()" style="background:none; border:none; color:white; cursor:pointer;"><i
+                    class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chat-messages">
+            <div class="message bot">Hello! I'm the Parkhill Assistant. How can I help you today?</div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <div style="position: fixed; bottom: 30px; right: 30px; z-index: 1000;">
+        <button class="btn btn-primary" style="border-radius: 50%; width: 60px; height: 60px; padding: 0;"
+            onclick="toggleChat()">
+            <i class="fas fa-comment"></i>
+        </button>
+    </div>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/263788528818?text=Hello,%20I%20would%20like%20more%20information%20about%20Parkhill%20College%202026%20enrollment."
+        class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>Parkhill College</h3>
+                <p>Domboshava Showgrounds,<br>Behind Council Offices, Zimbabwe</p>
+                <p>Phone: +263 788 528 818</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#academics">Academics</a></li>
+                    <li><a href="#admissions">Admissions</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Connect With Us</h3>
+                <div class="social-icons-row">
+                    <a href="https://facebook.com/parkhillcollege" target="_blank" class="social-icon social-facebook"
+                        title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/parkhillcollege" target="_blank" class="social-icon social-instagram"
+                        title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/263788528818" target="_blank" class="social-icon social-whatsapp"
+                        title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://tiktok.com/@parkhillcollege" target="_blank" class="social-icon social-tiktok"
+                        title="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Parkhill College. All Rights Reserved. Built for Excellence.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; letter-spacing: 1px;">
+                POWERED BY <a href="https://owatech-ai.com" target="_blank"
+                    style="color: var(--primary-gold); font-weight: bold; text-decoration: none; transition: all 0.3s;">OWA
+                    TECHNOLOGIES</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Enrollment Modal -->
+    <div class="modal-overlay" id="enrollModal" onclick="handleModalClick(event)">
+        <div class="enroll-modal">
+            <button class="close-modal" onclick="closeEnrollModal()">&times;</button>
+            <h3>📋 Enroll at Parkhill</h3>
+            <p class="modal-subtitle">Fill in your details and we'll contact you via WhatsApp instantly!</p>
+            <form id="enrollForm" onsubmit="submitEnrollment(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Parent/Guardian Name *</label>
+                        <input type="text" id="enroll-parent" placeholder="Full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp Number *</label>
+                        <input type="tel" id="enroll-phone" placeholder="e.g. 0788528818" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Student's Full Name *</label>
+                    <input type="text" id="enroll-student" placeholder="Student's full name" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Grade / Form Applying For *</label>
+                        <select id="enroll-grade" required>
+                            <option value="">Select Grade</option>
+                            <optgroup label="ECD & Primary">
+                                <option>ECD A</option>
+                                <option>ECD B</option>
+                                <option>Grade 1</option>
+                                <option>Grade 2</option>
+                                <option>Grade 3</option>
+                                <option>Grade 4</option>
+                                <option>Grade 5</option>
+                                <option>Grade 6</option>
+                                <option>Grade 7</option>
+                            </optgroup>
+                            <optgroup label="Secondary">
+                                <option>Form 1</option>
+                                <option>Form 2</option>
+                                <option>Form 3</option>
+                                <option>Form 4</option>
+                                <option>Form 5</option>
+                                <option>Form 6</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Student's Age</label>
+                        <input type="number" id="enroll-age" placeholder="Age" min="3" max="20">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Previous School (if any)</label>
+                    <input type="text" id="enroll-prevschool" placeholder="Previous school name">
+                </div>
+                <div class="form-group">
+                    <label>Additional Message</label>
+                    <textarea id="enroll-message" rows="3"
+                        placeholder="Any questions or special requirements?"></textarea>
+                </div>
+                <button type="submit" class="modal-submit-btn">📲 Send via WhatsApp &rarr;</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="bg-audio" loop>
+        <source src="audio/background-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+
+</html>
