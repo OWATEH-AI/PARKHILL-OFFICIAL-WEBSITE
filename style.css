@@ -26,10 +26,10 @@ body.dark-mode {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
 }
 
 body {
+    font-family: 'Inter', sans-serif;
     background-color: var(--white);
     color: var(--text-dark);
     line-height: 1.6;
@@ -83,6 +83,33 @@ ul {
 }
 
 /* Header */
+/* Font Awesome Fix */
+i.fas,
+i.fab,
+i.far,
+i.fa-solid,
+i.fa-brands {
+    font-family: inherit;
+    /* Fallback */
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+i.fas,
+i.fa-solid {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+}
+
+i.fab,
+i.fa-brands {
+    font-family: "Font Awesome 6 Brands" !important;
+    font-weight: 400 !important;
+}
+
 header {
     background: var(--white);
     padding: 1rem 5%;
