@@ -870,10 +870,10 @@ body.dark-mode .hamburger:hover {
         background: rgba(212,175,55,0.1);
     }
 
-    /* Mobile Volume Slider Placement */
+    /* Mobile Volume Slider Placement - centred on screen */
     .mobile-volume-wrapper {
-        position: absolute;
-        bottom: 60px;
+        position: fixed;
+        bottom: 80px;
         left: 50%;
         transform: translateX(-50%);
         top: auto !important;
@@ -881,9 +881,10 @@ body.dark-mode .hamburger:hover {
         z-index: 1001;
         background: var(--white);
         border: 1px solid var(--primary-gold);
-        padding: 12px 10px;
+        padding: 12px 16px;
         border-radius: 12px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        min-width: 220px;
     }
 
     body.dark-mode .mobile-volume-wrapper {
@@ -952,6 +953,7 @@ body.dark-mode .hamburger:hover {
     .hero-marquee {
         font-size: 0.75rem;
         padding: 7px 0;
+        display: flex !important;
     }
 
     .btn {
