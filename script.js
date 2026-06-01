@@ -355,8 +355,13 @@ function showTerm(termNumber) {
 
 // ===== BACKGROUND AUDIO CONTROL =====
 function toggleAudioSlider() {
-    const wrapper = document.getElementById('volume-wrapper');
-    wrapper.classList.toggle('active');
+    if (window.innerWidth <= 968) {
+        const mobileWrapper = document.getElementById('volume-wrapper-mobile');
+        if (mobileWrapper) mobileWrapper.classList.toggle('active');
+    } else {
+        const wrapper = document.getElementById('volume-wrapper');
+        if (wrapper) wrapper.classList.toggle('active');
+    }
 }
 
 function toggleAudio() {
@@ -387,22 +392,27 @@ function updateAudioUI(isPlaying) {
         }
     });
 
-    const playPauseBtn = document.querySelector('#play-pause-btn i');
-    if (playPauseBtn) {
+    // Update both play/pause buttons
+    document.querySelectorAll('#play-pause-btn i, #play-pause-btn-mobile i').forEach(btnIcon => {
         if (isPlaying) {
-            playPauseBtn.classList.remove('fa-play');
-            playPauseBtn.classList.add('fa-pause');
+            btnIcon.classList.remove('fa-play');
+            btnIcon.classList.add('fa-pause');
         } else {
-            playPauseBtn.classList.remove('fa-pause');
-            playPauseBtn.classList.add('fa-play');
+            btnIcon.classList.remove('fa-pause');
+            btnIcon.classList.add('fa-play');
         }
-    }
+    });
 }
 
 function updateVolume(val) {
     const bgAudio = document.getElementById('bg-audio');
     if (bgAudio) {
         bgAudio.volume = parseFloat(val);
+        // Sync both slider inputs
+        document.querySelectorAll('#volume-slider, #volume-slider-mobile').forEach(slider => {
+            slider.value = val;
+        });
+
         // Update both desktop and mobile audio icons
         document.querySelectorAll('#audio-toggle i, #audio-toggle-mobile i').forEach(icon => {
             if (parseFloat(val) == 0) {
@@ -418,10 +428,18 @@ function updateVolume(val) {
 
 // Close volume slider when clicking outside
 document.addEventListener('click', (e) => {
+    // Desktop volume outside check
     const wrapper = document.getElementById('volume-wrapper');
     const container = document.querySelector('.audio-control-container');
     if (wrapper && wrapper.classList.contains('active') && !container.contains(e.target)) {
         wrapper.classList.remove('active');
+    }
+
+    // Mobile volume outside check
+    const mobileWrapper = document.getElementById('volume-wrapper-mobile');
+    const mobileContainer = document.querySelector('.mobile-audio-container');
+    if (mobileWrapper && mobileWrapper.classList.contains('active') && !mobileContainer.contains(e.target)) {
+        mobileWrapper.classList.remove('active');
     }
 });
 
@@ -429,8 +447,12 @@ document.addEventListener('click', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     const bgAudio = document.getElementById('bg-audio');
     const volumeSlider = document.getElementById('volume-slider');
-    if (bgAudio && volumeSlider) {
-        bgAudio.volume = parseFloat(volumeSlider.value);
+    const volumeSliderMobile = document.getElementById('volume-slider-mobile');
+    if (bgAudio) {
+        const defaultVolume = volumeSlider ? parseFloat(volumeSlider.value) : 0.5;
+        bgAudio.volume = defaultVolume;
+        if (volumeSlider) volumeSlider.value = defaultVolume;
+        if (volumeSliderMobile) volumeSliderMobile.value = defaultVolume;
     }
 });
 

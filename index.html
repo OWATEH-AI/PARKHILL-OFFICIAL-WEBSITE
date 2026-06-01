@@ -144,10 +144,20 @@
             <!-- Mobile-only extras inside nav dropdown -->
             <div class="mobile-nav-extras">
                 <div class="mobile-nav-extra-row">
-                    <button onclick="toggleAudioSlider()" class="mobile-extra-btn" title="Music Controls">
-                        <i class="fas fa-music"></i>
-                        <span>Music</span>
-                    </button>
+                    <div class="mobile-audio-container" style="position: relative;">
+                        <button onclick="toggleAudioSlider()" class="mobile-extra-btn" title="Music Controls">
+                            <i class="fas fa-music"></i>
+                            <span>Music</span>
+                        </button>
+                        <div id="volume-wrapper-mobile" class="volume-slider-wrapper mobile-volume-wrapper">
+                            <div class="volume-header">
+                                <button onclick="toggleAudio(); event.stopPropagation();" id="play-pause-btn-mobile"><i
+                                        class="fas fa-play"></i></button>
+                                <input type="range" id="volume-slider-mobile" min="0" max="1" step="0.05" value="0.5"
+                                    oninput="updateVolume(this.value)">
+                            </div>
+                        </div>
+                    </div>
                     <button onclick="toggleSideMenu(); toggleMenu();" class="mobile-extra-btn" title="More Options">
                         <i class="fas fa-th-large"></i>
                         <span>More</span>

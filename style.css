@@ -869,6 +869,27 @@ body.dark-mode .hamburger:hover {
         color: var(--primary-gold);
         background: rgba(212,175,55,0.1);
     }
+
+    /* Mobile Volume Slider Placement */
+    .mobile-volume-wrapper {
+        position: absolute;
+        bottom: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: auto !important;
+        right: auto !important;
+        z-index: 1001;
+        background: var(--white);
+        border: 1px solid var(--primary-gold);
+        padding: 12px 10px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    body.dark-mode .mobile-volume-wrapper {
+        background: #2a2a2a;
+        border-color: var(--primary-gold);
+    }
 }
 
 /* ===== PHONE (≤ 768px) ===== */
