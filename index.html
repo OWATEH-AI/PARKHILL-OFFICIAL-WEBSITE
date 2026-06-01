@@ -31,6 +31,17 @@
     <meta name="twitter:description" content="A disciplined and academically driven institution in Domboshava. 2026 registration now open.">
     <meta name="twitter:image" content="https://parkhillcollege.co.zw/featured-images/hero-bg.jpg">
 
+    <!-- Performance: DNS Preconnect for external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://wa.me">
+
+    <!-- Preload critical above-the-fold assets -->
+    <link rel="preload" href="assets/logo.png" as="image">
+    <link rel="preload" href="featured-images/hero-bg.jpg" as="image">
+    <link rel="preload" href="style.css" as="style">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
@@ -298,6 +309,7 @@
             </div>
             <div class="about-image">
                 <img src="featured-images/about-us.jpg" alt="Students at Parkhill College Gate"
+                    loading="lazy" decoding="async"
                     style="width:100%; border-radius:15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
             </div>
         </div>
@@ -335,16 +347,19 @@
         <div class="grid">
             <div class="facility-item">
                 <img src="featured-images/classroom-facility.jpg" alt="Modern Classroom"
+                    loading="lazy" decoding="async"
                     style="width:100%; height:250px; border-radius:15px; margin-bottom:15px; object-fit:cover;">
                 <h4>Modern Classrooms</h4>
             </div>
             <div class="facility-item">
                 <img src="featured-images/science-lab.jpg" alt="Science Laboratory"
+                    loading="lazy" decoding="async"
                     style="width:100%; height:250px; border-radius:15px; margin-bottom:15px; object-fit:cover;">
                 <h4>Science Laboratory</h4>
             </div>
             <div class="facility-item">
                 <img src="featured-images/computer-lab.jpg" alt="Computer Lab"
+                    loading="lazy" decoding="async"
                     style="width:100%; height:250px; border-radius:15px; margin-bottom:15px; object-fit:cover;">
                 <h4>Computer Lab</h4>
             </div>
@@ -359,6 +374,7 @@
         <div class="grid">
             <div class="card">
                 <img src="featured-images/blog-zimsec.jpg" alt="ZIMSEC Preparation"
+                    loading="lazy" decoding="async"
                     style="width:100%; height:200px; border-radius:10px; margin-bottom:15px; object-fit:cover;">
                 <div class="blog-meta" style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
                     <i class="fas fa-user-circle" style="color: var(--primary-navy); font-size:24px;"></i>
@@ -369,6 +385,7 @@
             </div>
             <div class="card">
                 <img src="featured-images/blog-ecd.jpg" alt="ECD Importance"
+                    loading="lazy" decoding="async"
                     style="width:100%; height:200px; border-radius:10px; margin-bottom:15px; object-fit:cover;">
                 <div class="blog-meta" style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
                     <i class="fas fa-user-circle" style="color: var(--primary-navy); font-size:24px;"></i>
@@ -379,6 +396,7 @@
             </div>
             <div class="card">
                 <img src="featured-images/blog-leadership.jpg" alt="Leadership"
+                    loading="lazy" decoding="async"
                     style="width:100%; height:200px; border-radius:10px; margin-bottom:15px; object-fit:cover;">
                 <div class="blog-meta" style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
                     <i class="fas fa-user-circle" style="color: var(--primary-navy); font-size:24px;"></i>
@@ -389,6 +407,7 @@
             </div>
             <div class="card">
                 <img src="featured-images/blog-digital-skills.jpg" alt="Digital Skills"
+                    loading="lazy" decoding="async"
                     style="width:100%; height:200px; border-radius:10px; margin-bottom:15px; object-fit:cover;">
                 <div class="blog-meta" style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
                     <i class="fas fa-user-circle" style="color: var(--primary-navy); font-size:24px;"></i>
@@ -473,14 +492,14 @@
                 All <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="gallery-grid" id="main-gallery">
-            <div class="gallery-item" onclick="openLightbox(1)"><img src="gallery/1.jpg" alt="Gallery Image 1"></div>
-            <div class="gallery-item" onclick="openLightbox(2)"><img src="gallery/2.jpg" alt="Gallery Image 2"></div>
-            <div class="gallery-item" onclick="openLightbox(3)"><img src="gallery/3.jpg" alt="Gallery Image 3"></div>
-            <div class="gallery-item" onclick="openLightbox(4)"><img src="gallery/4.jpg" alt="Gallery Image 4"></div>
-            <div class="gallery-item" onclick="openLightbox(5)"><img src="gallery/5.jpg" alt="Gallery Image 5"></div>
-            <div class="gallery-item" onclick="openLightbox(6)"><img src="gallery/6.jpg" alt="Gallery Image 6"></div>
-            <div class="gallery-item" onclick="openLightbox(7)"><img src="gallery/7.jpg" alt="Gallery Image 7"></div>
-            <div class="gallery-item" onclick="openLightbox(8)"><img src="gallery/8.jpg" alt="Gallery Image 8"></div>
+            <div class="gallery-item" onclick="openLightbox(1)"><img src="gallery/1.jpg" alt="Gallery Image 1" loading="lazy" decoding="async"></div>
+            <div class="gallery-item" onclick="openLightbox(2)"><img src="gallery/2.jpg" alt="Gallery Image 2" loading="lazy" decoding="async"></div>
+            <div class="gallery-item" onclick="openLightbox(3)"><img src="gallery/3.jpg" alt="Gallery Image 3" loading="lazy" decoding="async"></div>
+            <div class="gallery-item" onclick="openLightbox(4)"><img src="gallery/4.jpg" alt="Gallery Image 4" loading="lazy" decoding="async"></div>
+            <div class="gallery-item" onclick="openLightbox(5)"><img src="gallery/5.jpg" alt="Gallery Image 5" loading="lazy" decoding="async"></div>
+            <div class="gallery-item" onclick="openLightbox(6)"><img src="gallery/6.jpg" alt="Gallery Image 6" loading="lazy" decoding="async"></div>
+            <div class="gallery-item" onclick="openLightbox(7)"><img src="gallery/7.jpg" alt="Gallery Image 7" loading="lazy" decoding="async"></div>
+            <div class="gallery-item" onclick="openLightbox(8)"><img src="gallery/8.jpg" alt="Gallery Image 8" loading="lazy" decoding="async"></div>
         </div>
 
         <div class="gallery-grid" id="extended-gallery" style="display: none; margin-top: 15px;">
@@ -735,7 +754,7 @@
     </audio>
 
     <!-- Scripts -->
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>

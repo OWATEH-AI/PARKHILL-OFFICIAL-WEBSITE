@@ -463,20 +463,5 @@ function closeOverlaySection() {
     document.body.style.overflow = ''; // Restore scroll
 }
 
-// ===== CALENDAR TABS =====
-function showTerm(termNumber) {
-    // Hide all term contents
-    const contents = document.querySelectorAll('.term-content');
-    contents.forEach(content => content.style.display = 'none');
 
-    // Deactivate all buttons
-    const tabs = document.querySelectorAll('.cal-tab');
-    tabs.forEach(tab => tab.classList.remove('active'));
-
-    // Show selected term
-    document.getElementById('term' + termNumber).style.display = 'block';
-
-    // Activate selected button
-    tabs[termNumber - 1].classList.add('active');
-}
 
