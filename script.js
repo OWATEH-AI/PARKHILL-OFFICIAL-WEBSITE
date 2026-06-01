@@ -463,5 +463,27 @@ function closeOverlaySection() {
     document.body.style.overflow = ''; // Restore scroll
 }
 
+// Expose functions globally to window for inline onclick handlers to work in ES Modules
+window.toggleTheme = toggleTheme;
+window.toggleMenu = toggleMenu;
+window.toggleAudioSlider = toggleAudioSlider;
+window.toggleAudio = toggleAudio;
+window.toggleSideMenu = toggleSideMenu;
+window.openOverlaySection = openOverlaySection;
+window.closeOverlaySection = closeOverlaySection;
+window.showTerm = showTerm;
+window.openEnrollModal = openEnrollModal;
+window.closeEnrollModal = closeEnrollModal;
+window.toggleGallery = toggleGallery;
+window.openLightbox = openLightbox;
+window.closeLightbox = closeLightbox;
+window.changeSlide = changeSlide;
+window.toggleSlideshow = toggleSlideshow;
+window.submitForm = submitForm;
+window.subscribeNewsletter = subscribeNewsletter;
+window.submitEnrollment = submitEnrollment;
+window.handleModalClick = handleModalClick;
+window.updateVolume = updateVolume;
+
 
 
