@@ -83,36 +83,24 @@ ul {
 }
 
 /* Header */
-/* Font Awesome Fix */
+/* Font Awesome — do NOT override font-family here; let FA CDN handle it */
 i.fas,
 i.fab,
 i.far,
 i.fa-solid,
 i.fa-brands {
-    font-family: inherit;
-    /* Fallback */
     display: inline-block;
     font-style: normal;
     font-variant: normal;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
-}
-
-i.fas,
-i.fa-solid {
-    font-family: "Font Awesome 6 Free" !important;
-    font-weight: 900 !important;
-}
-
-i.fab,
-i.fa-brands {
-    font-family: "Font Awesome 6 Brands" !important;
-    font-weight: 400 !important;
+    line-height: 1;
 }
 
 header {
     background: var(--white);
-    padding: 1rem 5%;
+    padding: 0 5%;
+    height: 72px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -120,12 +108,15 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
+    flex-wrap: nowrap;
+    gap: 12px;
 }
 
 .logo-container {
     display: flex;
     align-items: center;
     gap: 15px;
+    flex-shrink: 0;
 }
 
 .logo-container img {
@@ -145,12 +136,26 @@ header {
     text-transform: uppercase;
 }
 
+/* Header right: theme toggle + hamburger — hidden on desktop, shown on mobile/tablet */
+.header-right {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* theme-toggle-mobile: hidden on desktop, shown on mobile */
+#theme-toggle-mobile {
+    display: none;
+}
+
 nav ul {
     display: flex;
     gap: 20px;
     align-items: center;
 }
 
+/* Controls inside nav for desktop — hidden on mobile */
 .header-controls {
     display: flex;
     align-items: center;
@@ -158,9 +163,14 @@ nav ul {
     margin-left: 10px;
 }
 
+/* Mobile nav extras (shown only inside hamburger dropdown) */
+.mobile-nav-extras {
+    display: none;
+}
+
 .theme-control-btn {
     background: transparent;
-    border: 1px solid var(--primary-navy);
+    border: 1.5px solid var(--primary-navy);
     color: var(--primary-navy);
     width: 40px;
     height: 40px;
@@ -170,18 +180,37 @@ nav ul {
     align-items: center;
     justify-content: center;
     transition: var(--transition);
-    font-size: 1.1rem;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.theme-control-btn i {
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
 }
 
 .theme-control-btn:hover {
     background: var(--primary-gold);
-    color: white;
+    color: #fff;
     border-color: var(--primary-gold);
+    transform: scale(1.08);
+    box-shadow: 0 4px 14px rgba(176,141,62,0.3);
 }
 
 body.dark-mode .theme-control-btn {
     color: var(--primary-gold);
     border-color: var(--primary-gold);
+}
+
+body.dark-mode .theme-control-btn:hover {
+    background: var(--primary-gold);
+    color: #121212;
 }
 
 nav ul li a {
@@ -366,16 +395,94 @@ body.dark-mode #volume-slider {
 
 /* Hero Section */
 .hero {
-    height: 80vh;
+    min-height: calc(100vh - 72px);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: linear-gradient(rgba(26, 27, 93, 0.7), rgba(26, 27, 93, 0.7)), url('assets/hero-bg.jpg');
+    color: var(--white);
+    padding: 0 10% 40px 10%;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--primary-navy);
+}
+
+.hero-bg-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0;
+    padding: 0;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.hero-bg-item {
+    background-image: url('featured-images/hero-bg.jpg');
     background-size: cover;
     background-position: center;
-    color: var(--white);
-    padding: 0 10%;
+    background-repeat: no-repeat;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(26, 27, 93, 0.75), rgba(26, 27, 93, 0.75));
+    z-index: 2;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+}
+
+/* Base Marquee */
+.hero-marquee {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(176, 141, 62, 0.95);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.marquee-content {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee-scroll 45s linear infinite;
+}
+
+.marquee-content span {
+    padding-right: 50px;
+}
+
+@keyframes marquee-scroll {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-50%, 0, 0);
+    }
 }
 
 .hero-content h2 {
@@ -386,9 +493,17 @@ body.dark-mode #volume-slider {
 }
 
 .hero-content p {
-    font-size: 1.5rem;
-    font-weight: 300;
+    display: inline-block;
+    background: var(--primary-gold);
+    color: white;
+    padding: 5px 20px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
     margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    white-space: nowrap;
     animation: fadeIn 1s ease-out 0.3s forwards;
     opacity: 0;
 }
@@ -439,14 +554,16 @@ body.dark-mode #volume-slider {
     right: 30px;
     background: #25d366;
     color: white;
-    padding: 15px 25px;
-    border-radius: 50px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    font-weight: 600;
+    font-size: 1.8rem;
+    text-decoration: none;
 }
 
 .whatsapp-float:hover {
@@ -502,8 +619,7 @@ section {
 body.dark-mode .card,
 body.dark-mode .faq-item,
 body.dark-mode .contact-info,
-body.dark-mode .contact-form,
-body.dark-mode .chatbot-container {
+body.dark-mode .contact-form {
     background: rgba(30, 30, 30, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-top-color: var(--primary-gold);
@@ -526,80 +642,6 @@ body.dark-mode .chatbot-container {
 .facility-item:hover img,
 .card:hover img {
     transform: scale(1.05);
-}
-
-/* Chatbot Enhancements */
-.chatbot-container {
-    border: 1px solid rgba(26, 27, 93, 0.1);
-}
-
-/* Form 2026 Badge */
-.hero-content p {
-    display: inline-block;
-    background: var(--primary-gold);
-    color: white;
-    padding: 5px 20px;
-    border-radius: 30px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.chatbot-header {
-    background: var(--primary-navy);
-    color: white;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.chatbot-messages {
-    height: 300px;
-    padding: 15px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.message {
-    padding: 10px 15px;
-    border-radius: 10px;
-    max-width: 80%;
-}
-
-.bot {
-    background: var(--light-bg);
-    align-self: flex-start;
-}
-
-.user {
-    background: var(--primary-navy);
-    color: white;
-    align-self: flex-end;
-}
-
-.chatbot-input {
-    display: flex;
-    padding: 10px;
-    border-top: 1px solid #eee;
-}
-
-.chatbot-input input {
-    flex: 1;
-    border: none;
-    padding: 10px;
-    outline: none;
-}
-
-.chatbot-input button {
-    background: var(--primary-navy);
-    color: white;
-    border: none;
-    padding: 5px 15px;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 /* Footer */
@@ -628,59 +670,108 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
+/* ===== HAMBURGER MENU ===== */
+.hamburger {
+    display: none;
+    background: none;
+    border: 1.5px solid var(--primary-navy);
+    font-size: 1.2rem;
+    color: var(--primary-navy);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.hamburger:hover {
+    background: var(--primary-gold);
+    color: #fff;
+    border-color: var(--primary-gold);
+}
+
+body.dark-mode .hamburger {
+    color: var(--primary-gold);
+    border-color: var(--primary-gold);
+}
+
+body.dark-mode .hamburger:hover {
+    background: var(--primary-gold);
+    color: #121212;
+}
+
+/* ===== TABLET (969px – 1100px) ===== */
+@media (max-width: 1100px) and (min-width: 969px) {
     header {
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 1rem 5%;
+        padding: 0 3%;
+        height: 72px;
     }
 
-    .logo-container img {
-        height: 50px;
+    nav ul {
+        gap: 10px;
     }
 
     .school-name h1 {
         font-size: 1.2rem;
     }
 
-    nav ul {
-        margin-top: 20px;
-        gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
+    .logo-container img {
+        height: 50px;
     }
 
-    .hero-content h2 {
-        font-size: 2.5rem;
+    nav ul li a {
+        font-size: 0.88rem;
+    }
+
+    .cta-nav {
+        padding: 9px 16px;
+        font-size: 0.85rem;
     }
 }
 
-/* Hamburger Menu */
-.hamburger {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--primary-navy);
-    cursor: pointer;
-    padding: 10px;
-}
-
+/* ===== MOBILE NAV (≤ 968px) ===== */
 @media (max-width: 968px) {
-    .hamburger {
-        display: block;
+    /* Show the right-side button group */
+    .header-right {
+        display: flex;
     }
 
+    /* Show hamburger */
+    .hamburger {
+        display: flex;
+    }
+
+    /* Show mobile theme toggle */
+    #theme-toggle-mobile {
+        display: flex;
+    }
+
+    /* Hide the desktop controls inside nav */
+    .header-controls {
+        display: none;
+    }
+
+    /* Nav drops absolutely below the header — does NOT affect header height */
     nav {
         display: none;
-        width: 100%;
         position: absolute;
-        top: 100%;
+        top: 72px;
         left: 0;
+        width: 100%;
         background: var(--white);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.13);
+        padding: 8px 5% 0;
+        border-top: 2px solid rgba(176,141,62,0.2);
+        border-radius: 0 0 14px 14px;
+        z-index: 999;
+    }
+
+    body.dark-mode nav {
+        background: #1a1a1a;
+        border-top-color: rgba(212,175,55,0.3);
     }
 
     nav.active {
@@ -689,12 +780,184 @@ footer {
 
     nav ul {
         flex-direction: column;
-        gap: 15px;
+        gap: 0;
+        align-items: stretch;
+    }
+
+    nav ul li {
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    body.dark-mode nav ul li {
+        border-bottom-color: rgba(255,255,255,0.06);
+    }
+
+    nav ul li:last-child {
+        border-bottom: none;
     }
 
     nav ul li a {
         display: block;
-        padding: 10px 0;
+        padding: 11px 5px;
+        font-size: 0.97rem;
+    }
+
+    /* Hide desktop controls li inside nav */
+    nav ul li:has(.header-controls) {
+        display: none;
+    }
+
+    .cta-nav {
+        display: block;
+        margin: 8px 0 4px;
+        text-align: center;
+    }
+
+    /* Show mobile extras bar */
+    .mobile-nav-extras {
+        display: block;
+        border-top: 2px solid rgba(176,141,62,0.2);
+        padding: 12px 0 14px;
+        margin-top: 6px;
+    }
+
+    body.dark-mode .mobile-nav-extras {
+        border-top-color: rgba(212,175,55,0.3);
+    }
+
+    .mobile-nav-extra-row {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .mobile-extra-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        background: transparent;
+        border: none;
+        color: var(--primary-navy);
+        font-size: 0.72rem;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 8px 16px;
+        border-radius: 10px;
+        transition: var(--transition);
+        text-decoration: none;
+        letter-spacing: 0.3px;
+    }
+
+    .mobile-extra-btn i {
+        font-size: 1.2rem;
+        color: var(--primary-gold);
+        margin-bottom: 2px;
+    }
+
+    .mobile-extra-btn:hover {
+        background: rgba(176,141,62,0.1);
+        color: var(--primary-gold);
+    }
+
+    body.dark-mode .mobile-extra-btn {
+        color: #ccc;
+    }
+
+    body.dark-mode .mobile-extra-btn:hover {
+        color: var(--primary-gold);
+        background: rgba(212,175,55,0.1);
+    }
+}
+
+/* ===== PHONE (≤ 768px) ===== */
+@media (max-width: 768px) {
+    header {
+        padding: 0 4%;
+        height: 72px;
+    }
+
+    .logo-container {
+        gap: 10px;
+    }
+
+    .logo-container img {
+        height: 42px;
+    }
+
+    .school-name h1 {
+        font-size: 1rem;
+        letter-spacing: 0;
+    }
+
+    /* Show subtitle on phone, slightly smaller */
+    .school-name p {
+        font-size: 0.65rem;
+    }
+
+    .theme-control-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.88rem;
+    }
+
+    .hamburger {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    /* Nav also starts at 72px on phone */
+    nav {
+        top: 72px !important;
+    }
+
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+
+    .hero-btns {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .hero-marquee {
+        font-size: 0.75rem;
+        padding: 7px 0;
+    }
+
+    .btn {
+        padding: 13px 28px;
+        font-size: 0.95rem;
+    }
+
+    section {
+        padding: 55px 5%;
+    }
+
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+
+
+    .whatsapp-float {
+        bottom: 90px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
     }
 }
 
@@ -857,14 +1120,6 @@ body.dark-mode .close-lightbox {
     color: var(--text-light);
 }
 
-body.dark-mode .chatbot-input {
-    border-top-color: #333;
-}
-
-body.dark-mode .chatbot-input input {
-    background: #2a2a2a;
-    color: var(--text-dark);
-}
 
 body.dark-mode .whatsapp-float {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
@@ -1054,45 +1309,6 @@ body.dark-mode .whatsapp-float {
     transform: translateY(-2px);
 }
 
-
-/* Chatbot Enhancements */
-.chatbot-container {
-    display: none;
-    position: fixed;
-    bottom: 100px;
-    right: 30px;
-    width: 350px;
-    background: var(--white);
-    border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.quick-replies {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 10px 15px;
-    border-top: 1px solid #eee;
-}
-
-.quick-reply-btn {
-    background: var(--light-bg);
-    border: 1px solid var(--primary-gold);
-    color: var(--primary-navy);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.quick-reply-btn:hover {
-    background: var(--primary-gold);
-    color: var(--white);
-}
 
 /* ===== ENROLLMENT MODAL ===== */
 .modal-overlay {

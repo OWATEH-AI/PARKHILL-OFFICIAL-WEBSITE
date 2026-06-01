@@ -6,13 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parkhill College | We Focus, Build and Control</title>
     <meta name="description"
-        content="Parkhill College - A premier private school in Domboshava, Zimbabwe. 2026 Registration now open for ECD to Grade 7, Form 1 to Form 6.">
+        content="Parkhill College is a premier private school in Domboshava, Zimbabwe. 2026 Registration now open for ECD to Grade 7, Form 1 to Form 6. Focused on academic excellence, discipline, and leadership.">
+    
+    <!-- AI Agent & Search Engine Crawl Directives -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    
+    <!-- Open Graph Tags (Facebook, Meta AI, SearchGPT Sharing) -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Parkhill College | Private School in Domboshava, Zimbabwe">
+    <meta property="og:description" content="Parkhill College is a disciplined and academically driven institution in Domboshava Showgrounds, Zimbabwe. Enrollment is in progress for ECD, Primary, and High School levels.">
+    <meta property="og:url" content="https://parkhillcollege.co.zw">
+    <meta property="og:site_name" content="Parkhill College">
+    <meta property="og:image" content="https://parkhillcollege.co.zw/featured-images/hero-bg.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+
+    <!-- Twitter Card Tags (X Sharing) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Parkhill College | Private School in Domboshava, Zimbabwe">
+    <meta name="twitter:description" content="A disciplined and academically driven institution in Domboshava. 2026 registration now open.">
+    <meta name="twitter:image" content="https://parkhillcollege.co.zw/featured-images/hero-bg.jpg">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
     <!-- Font Awesome (for icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Schema.org JSON-LD Structured Data for AI & Search Engine Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "School",
+      "name": "Parkhill College",
+      "alternateName": "Parkhill College Domboshava",
+      "description": "Parkhill College is a premier private school in Domboshava, Zimbabwe, committed to academic excellence, discipline, leadership, and character development. Offering ECD, Primary (Grade 1-7), and High School (Form 1-6) learning levels.",
+      "url": "https://parkhillcollege.co.zw",
+      "logo": "https://parkhillcollege.co.zw/assets/logo.png",
+      "image": "https://parkhillcollege.co.zw/featured-images/hero-bg.jpg",
+      "motto": "We Focus, Build and Control",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Domboshava Showgrounds, Behind Council Offices",
+        "addressLocality": "Domboshava",
+        "addressRegion": "Mashonaland East",
+        "addressCountry": "ZW"
+      },
+      "telephone": "+263788528818",
+      "email": "info@parkhillcollege.co.zw",
+      "sameAs": [
+        "https://facebook.com/parkhillcollege",
+        "https://instagram.com/parkhillcollege",
+        "https://tiktok.com/@parkhillcollege",
+        "https://wa.me/263788528818"
+      ]
+    }
+    </script>
 </head>
 
 <body>
@@ -20,15 +74,24 @@
     <!-- Header -->
     <header>
         <div class="logo-container">
-            <img src="assets/logo.png" alt="Parkhill College Logo" style="height: 80px; width: auto;">
+            <img src="assets/logo.png" alt="Parkhill College Logo">
             <div class="school-name">
                 <h1>PARKHILL COLLEGE</h1>
                 <p>We Focus, Build and Control</p>
             </div>
         </div>
-        <button class="hamburger" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </button>
+
+        <!-- Mobile header: only hamburger + dark mode shown -->
+        <div class="header-right">
+            <button id="theme-toggle-mobile" onclick="toggleTheme()" class="theme-control-btn"
+                title="Toggle Light/Dark Mode">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="hamburger" id="hamburger-btn" onclick="toggleMenu()" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
         <nav id="main-nav">
             <ul>
                 <li><a href="#home">Home</a></li>
@@ -66,8 +129,27 @@
                     </div>
                 </li>
             </ul>
+
+            <!-- Mobile-only extras inside nav dropdown -->
+            <div class="mobile-nav-extras">
+                <div class="mobile-nav-extra-row">
+                    <button onclick="toggleAudioSlider()" class="mobile-extra-btn" title="Music Controls">
+                        <i class="fas fa-music"></i>
+                        <span>Music</span>
+                    </button>
+                    <button onclick="toggleSideMenu(); toggleMenu();" class="mobile-extra-btn" title="More Options">
+                        <i class="fas fa-th-large"></i>
+                        <span>More</span>
+                    </button>
+                    <a href="https://wa.me/263788528818" class="mobile-extra-btn" target="_blank" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                </div>
+            </div>
         </nav>
     </header>
+
 
     <!-- Side Menu Sidebar (Starlink Style) -->
     <div id="side-menu" class="side-menu">
@@ -172,14 +254,26 @@
 
 
     <!-- Hero Section -->
-    <section class="hero" id="home"
-        style="background: linear-gradient(rgba(26, 27, 93, 0.7), rgba(26, 27, 93, 0.7)), url('featured-images/hero-bg.jpg');">
+    <section class="hero" id="home">
+        <div class="hero-bg-grid">
+            <div class="hero-bg-item"></div>
+            <div class="hero-bg-item"></div>
+            <div class="hero-bg-item"></div>
+            <div class="hero-bg-item"></div>
+        </div>
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <h2>PARKHILL COLLEGE</h2>
             <p>2026 Registration In Progress</p>
             <div class="hero-btns">
                 <a href="#" class="btn btn-primary" onclick="openEnrollModal(); return false;">Enroll for 2026</a>
                 <a href="https://wa.me/263788528818" class="btn btn-secondary">Chat With Us</a>
+            </div>
+        </div>
+        <div class="hero-marquee">
+            <div class="marquee-content">
+                <span>★ Enrollment for 2026 Academic Year is Now in Progress! ★ ECD, Primary, and High School Admissions ★ Disciplined, Academically Driven & Safe Environment ★ Domboshava Showgrounds Campus, Zimbabwe ★ Call +263 788 528 818 or Click WhatsApp to Chat! ★</span>
+                <span>★ Enrollment for 2026 Academic Year is Now in Progress! ★ ECD, Primary, and High School Admissions ★ Disciplined, Academically Driven & Safe Environment ★ Domboshava Showgrounds Campus, Zimbabwe ★ Call +263 788 528 818 or Click WhatsApp to Chat! ★</span>
             </div>
         </div>
     </section>
@@ -520,32 +614,12 @@
         </div>
     </section>
 
-    <!-- Chatbot -->
-    <div class="chatbot-container" id="chatbot">
-        <div class="chatbot-header">
-            <span>Parkhill Assistant</span>
-            <button onclick="toggleChat()" style="background:none; border:none; color:white; cursor:pointer;"><i
-                    class="fas fa-times"></i></button>
-        </div>
-        <div class="chatbot-messages" id="chat-messages">
-            <div class="message bot">Hello! I'm the Parkhill Assistant. How can I help you today?</div>
-        </div>
-        <div class="chatbot-input">
-            <input type="text" id="chat-input" placeholder="Type your message...">
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-    <div style="position: fixed; bottom: 30px; right: 30px; z-index: 1000;">
-        <button class="btn btn-primary" style="border-radius: 50%; width: 60px; height: 60px; padding: 0;"
-            onclick="toggleChat()">
-            <i class="fas fa-comment"></i>
-        </button>
-    </div>
+
 
     <!-- WhatsApp Button -->
     <a href="https://wa.me/263788528818?text=Hello,%20I%20would%20like%20more%20information%20about%20Parkhill%20College%202026%20enrollment."
-        class="whatsapp-float">
-        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+        class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
     </a>
 
     <!-- Footer -->

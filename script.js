@@ -112,6 +112,13 @@ function stopSlideshow() {
     slideshowInterval = null;
     const btn = document.getElementById('slideshow-btn');
     if (btn) btn.innerHTML = '<i class="fas fa-play"></i> Start Slideshow';
+
+    // Stop the background music when slideshow is stopped
+    const bgAudio = document.getElementById('bg-audio');
+    if (bgAudio && !bgAudio.paused) {
+        bgAudio.pause();
+        updateAudioUI(false);
+    }
 }
 
 // Close mobile menu when clicking on a link
@@ -127,110 +134,6 @@ document.querySelectorAll('#main-nav a').forEach(link => {
     });
 });
 
-// Chatbot Logic
-const chatbot = document.getElementById('chatbot');
-const chatMessages = document.getElementById('chat-messages');
-const chatInput = document.getElementById('chat-input');
-
-function toggleChat() {
-    if (chatbot.style.display === 'flex') {
-        chatbot.style.display = 'none';
-    } else {
-        chatbot.style.display = 'flex';
-        // Add quick replies after first message
-        if (!document.querySelector('.quick-replies')) {
-            addQuickReplies();
-        }
-    }
-}
-
-function addQuickReplies() {
-    const quickRepliesDiv = document.createElement('div');
-    quickRepliesDiv.className = 'quick-replies';
-
-    const questions = ['Fees?', 'Location?', 'Register?', 'Subjects?', 'Contact?'];
-
-    questions.forEach(q => {
-        const btn = document.createElement('button');
-        btn.className = 'quick-reply-btn';
-        btn.textContent = q;
-        btn.onclick = () => {
-            chatInput.value = q;
-            sendMessage();
-        };
-        quickRepliesDiv.appendChild(btn);
-    });
-
-    chatbot.appendChild(quickRepliesDiv);
-}
-
-function sendMessage() {
-    const text = chatInput.value.trim();
-    if (text === '') return;
-
-    // Add user message
-    addMessage(text, 'user');
-    chatInput.value = '';
-
-    // Simple AI Logic
-    setTimeout(() => {
-        const response = getBotResponse(text);
-        addMessage(response, 'bot');
-    }, 500);
-}
-
-function addMessage(text, sender) {
-    const div = document.createElement('div');
-    div.className = `message ${sender}`;
-    div.innerText = text;
-    chatMessages.appendChild(div);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-function getBotResponse(input) {
-    const msg = input.toLowerCase();
-
-    if (msg.includes('fee') || msg.includes('price') || msg.includes('cost') || msg.includes('how much')) {
-        return "Fees vary by grade level. For the 2026 academic year, please visit our administration office at Domboshava Showgrounds for a detailed fee structure.";
-    }
-    if (msg.includes('subject') || msg.includes('curriculum') || msg.includes('what do you teach')) {
-        return "We offer both ZIMSEC and Cambridge curriculum focusing on Mathematics, Sciences, Languages, and Computer Literacy from ECD to Form 6.";
-    }
-    if (msg.includes('register') || msg.includes('enroll') || msg.includes('apply') || msg.includes('admission')) {
-        return "To register, visit us at Domboshava Showgrounds to collect an application form. Bring the student's birth certificate and previous school results.";
-    }
-    if (msg.includes('location') || msg.includes('where') || msg.includes('address')) {
-        return "We are located at Domboshava Showgrounds, Behind Council Offices, Zimbabwe.";
-    }
-    if (msg.includes('contact') || msg.includes('phone') || msg.includes('number') || msg.includes('call')) {
-        return "You can reach us at +263 788 528 818 or chat with us directly on WhatsApp using the button on the screen.";
-    }
-    if (msg.includes('grade') || msg.includes('level') || msg.includes('class') || msg.includes('form')) {
-        return "We offer classes from ECD to Grade 7, and Form 1 to Form 6 (O and A Level).";
-    }
-    if (msg.includes('transport') || msg.includes('bus') || msg.includes('shuttle')) {
-        return "Yes, we offer school bus services to surrounding areas including Domboshava, Goromonzi, and Ruwa. Contact us for routes and fees.";
-    }
-    if (msg.includes('uniform') || msg.includes('clothes')) {
-        return "School uniforms can be purchased from our designated supplier. Navy blue for the college uniform with gold accents.";
-    }
-    if (msg.includes('food') || msg.includes('meal') || msg.includes('lunch') || msg.includes('cafeteria')) {
-        return "Yes, we have a cafeteria serving nutritious meals. Students can also bring packed lunches. Breakfast is available from 7:00 AM.";
-    }
-    if (msg.includes('sport') || msg.includes('activity') || msg.includes('extracurricular')) {
-        return "We offer sports (football, basketball, volleyball), music, drama, science club, debating society, and various cultural activities.";
-    }
-    if (msg.includes('time') || msg.includes('hour') || msg.includes('schedule')) {
-        return "School runs from 7:30 AM to 3:30 PM, Monday to Friday. Extramural activities are available after school until 4:30 PM.";
-    }
-
-    return "Thank you for your interest in Parkhill College. Please ask about our fees, location, registration process, subjects, transport, or uniforms!";
-}
-
-// Enter key for chat
-chatInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') sendMessage();
-});
 
 // Active Menu Highlighting (Scroll Spy)
 const sections = document.querySelectorAll('section');
@@ -375,22 +278,21 @@ function submitEnrollment(event) {
 // ===== DARK MODE TOGGLE =====
 function toggleTheme() {
     const body = document.body;
-    const btn = document.getElementById('theme-toggle');
-    const icon = btn.querySelector('i');
-
     body.classList.toggle('dark-mode');
     const isDark = body.classList.contains('dark-mode');
 
-    // Switch icon
-    if (isDark) {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-        localStorage.setItem('theme', 'light');
-    }
+    // Update ALL theme toggle buttons (desktop + mobile)
+    document.querySelectorAll('#theme-toggle i, #theme-toggle-mobile i').forEach(icon => {
+        if (isDark) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    });
+
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
 // Load saved theme
@@ -399,11 +301,12 @@ function toggleTheme() {
     if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
         window.addEventListener('DOMContentLoaded', () => {
-            const icon = document.querySelector('#theme-toggle i');
-            if (icon) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            }
+            document.querySelectorAll('#theme-toggle i, #theme-toggle-mobile i').forEach(icon => {
+                if (icon) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                }
+            });
         });
     }
 })();
@@ -468,20 +371,23 @@ function toggleAudio() {
 }
 
 function updateAudioUI(isPlaying) {
-    const mainIcon = document.querySelector('#audio-toggle i');
-    const playPauseBtn = document.querySelector('#play-pause-btn i');
+    // Update desktop AND mobile audio toggle icons
+    document.querySelectorAll('#audio-toggle i, #audio-toggle-mobile i').forEach(icon => {
+        if (isPlaying) {
+            icon.classList.remove('fa-volume-mute');
+            icon.classList.add('fa-volume-up');
+        } else {
+            icon.classList.remove('fa-volume-up');
+            icon.classList.add('fa-volume-mute');
+        }
+    });
 
-    if (isPlaying) {
-        mainIcon.classList.remove('fa-volume-mute');
-        mainIcon.classList.add('fa-volume-up');
-        if (playPauseBtn) {
+    const playPauseBtn = document.querySelector('#play-pause-btn i');
+    if (playPauseBtn) {
+        if (isPlaying) {
             playPauseBtn.classList.remove('fa-play');
             playPauseBtn.classList.add('fa-pause');
-        }
-    } else {
-        mainIcon.classList.remove('fa-volume-up');
-        mainIcon.classList.add('fa-volume-mute');
-        if (playPauseBtn) {
+        } else {
             playPauseBtn.classList.remove('fa-pause');
             playPauseBtn.classList.add('fa-play');
         }
@@ -490,16 +396,18 @@ function updateAudioUI(isPlaying) {
 
 function updateVolume(val) {
     const bgAudio = document.getElementById('bg-audio');
-    const mainIcon = document.querySelector('#audio-toggle i');
     if (bgAudio) {
         bgAudio.volume = parseFloat(val);
-        if (parseFloat(val) == 0) {
-            mainIcon.classList.remove('fa-volume-up');
-            mainIcon.classList.add('fa-volume-mute');
-        } else if (!bgAudio.paused) {
-            mainIcon.classList.remove('fa-volume-mute');
-            mainIcon.classList.add('fa-volume-up');
-        }
+        // Update both desktop and mobile audio icons
+        document.querySelectorAll('#audio-toggle i, #audio-toggle-mobile i').forEach(icon => {
+            if (parseFloat(val) == 0) {
+                icon.classList.remove('fa-volume-up');
+                icon.classList.add('fa-volume-mute');
+            } else if (!bgAudio.paused) {
+                icon.classList.remove('fa-volume-mute');
+                icon.classList.add('fa-volume-up');
+            }
+        });
     }
 }
 
