@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  plugins: [],
   build: {
     // Increase inline threshold so small assets get inlined
     assetsInlineLimit: 4096,
