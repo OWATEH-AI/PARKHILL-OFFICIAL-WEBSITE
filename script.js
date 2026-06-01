@@ -58,6 +58,7 @@ function openLightbox(index) {
     img.src = `gallery/${currentSlide}.jpg`;
     lightbox.style.display = 'flex';
     document.body.style.overflow = 'hidden';
+    updateLightboxMuteUI();
 }
 
 function closeLightbox() {
@@ -92,8 +93,12 @@ function toggleSlideshow() {
         startSlideshow();
         // Ensure audio plays when slideshow starts
         const bgAudio = document.getElementById('bg-audio');
-        if (bgAudio.paused) {
-            toggleAudio();
+        if (bgAudio && bgAudio.paused) {
+            bgAudio.play().then(() => {
+                updateAudioUI(true);
+            }).catch(error => {
+                console.log("Audio playback failed:", error);
+            });
         }
     }
 }
@@ -463,6 +468,25 @@ function closeOverlaySection() {
     document.body.style.overflow = ''; // Restore scroll
 }
 
+function toggleLightboxMute() {
+    const bgAudio = document.getElementById('bg-audio');
+    if (!bgAudio) return;
+    bgAudio.muted = !bgAudio.muted;
+    updateLightboxMuteUI();
+}
+
+function updateLightboxMuteUI() {
+    const bgAudio = document.getElementById('bg-audio');
+    const muteBtn = document.getElementById('lightbox-mute-btn');
+    if (bgAudio && muteBtn) {
+        if (bgAudio.muted) {
+            muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i> Unmute';
+        } else {
+            muteBtn.innerHTML = '<i class="fas fa-volume-up"></i> Mute';
+        }
+    }
+}
+
 // Expose functions globally to window for inline onclick handlers to work in ES Modules
 window.toggleTheme = toggleTheme;
 window.toggleMenu = toggleMenu;
@@ -484,6 +508,7 @@ window.subscribeNewsletter = subscribeNewsletter;
 window.submitEnrollment = submitEnrollment;
 window.handleModalClick = handleModalClick;
 window.updateVolume = updateVolume;
+window.toggleLightboxMute = toggleLightboxMute;
 
 
 
